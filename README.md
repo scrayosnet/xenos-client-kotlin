@@ -3,6 +3,10 @@
 ![A visual badge for the latest release](https://img.shields.io/github/v/release/scrayosnet/xenos-client-kotlin "Latest Release")
 ![A visual badge for the workflow status](https://img.shields.io/github/actions/workflow/status/scrayosnet/xenos-client-kotlin/gradle.yml "Workflow Status")
 ![A visual badge for the license](https://img.shields.io/github/license/scrayosnet/xenos "License")
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=scrayosnet_xenos-client-kotlin&metric=coverage)](https://sonarcloud.io/summary/new_code?id=scrayosnet_xenos-client-kotlin "Coverage")
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=scrayosnet_xenos-client-kotlin&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=scrayosnet_xenos-client-kotlin "Reliability")
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=scrayosnet_xenos-client-kotlin&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=scrayosnet_xenos-client-kotlin "Maintainability")
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=scrayosnet_xenos-client-kotlin&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=scrayosnet_xenos-client-kotlin "Security")
 
 Xenos Client for Kotlin is a [gRPC][grpc-docs] client/binding that wraps the raw protobuf stubs and communication with
 [Xenos][xenos-project] in an easy-to-use, polished API. It is possible to add the client as a dependency in Maven and

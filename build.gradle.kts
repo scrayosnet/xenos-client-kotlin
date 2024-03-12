@@ -202,7 +202,9 @@ ktlint {
 // configure sonarqube plugin
 sonarqube {
     properties {
-        property("sonar.projectName", "xenos-client")
+        property("sonar.projectKey", "scrayosnet_xenos-client-kotlin")
+        property("sonar.organization", "scrayosnet")
+        property("sonar.projectName", "xenos-client-kotlin")
         property("sonar.projectVersion", version)
         property("sonar.projectDescription", description!!)
         property("sonar.pitest.mode", "reuseReport")

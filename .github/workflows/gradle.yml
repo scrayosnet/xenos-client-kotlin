@@ -4,10 +4,7 @@ on: [push]
 
 jobs:
   build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     steps:
 
     - name: Checkout sources
@@ -26,6 +23,9 @@ jobs:
 
     - name: Execute Gradle Build
       run: ./gradlew build
+
+    - name: Execute Sonarqube Scan
+      run: ./gradlew sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.token=$SONAR_TOKEN -Dsonar.qualitygate.wait=true
 
     - name: Upload analysis results to GitHub
       uses: github/codeql-action/upload-sarif@v3
