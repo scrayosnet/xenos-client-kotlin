@@ -11,7 +11,7 @@ protobuf = "3.25.3"
 protoc-java = "1.61.1"
 protoc-kotlin = "1.4.1"
 kotlin-coroutines = "1.8.0"
-slf4j = "2.0.11"
+slf4j = "2.0.12"
 log4j = "2.23.0"
 mockk = "1.13.9"
 
