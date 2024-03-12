@@ -1,0 +1,32 @@
+name: Gradle Build
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+
+    - name: Checkout sources
+      uses: actions/checkout@v4
+
+    - name: Set up Java
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'corretto'
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+
+    - name: Execute Gradle Build
+      run: ./gradlew build
+
+    - name: Upload analysis results to GitHub
+      uses: github/codeql-action/upload-sarif@v3
+      with:
+        sarif_file: build/reports
+        wait-for-processing: true
