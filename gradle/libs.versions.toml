@@ -1,6 +1,6 @@
 [versions]
 kotlin = "1.9.22"
-dokka = "1.9.10"
+dokka = "1.9.20"
 ktlint = "1.1.1"
 junit = "5.10.2"
 pitest-core = "1.15.8"
