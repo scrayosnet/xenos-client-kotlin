@@ -167,13 +167,16 @@ pitest {
     pitestVersion = libs.versions.pitest.core
     junit5PluginVersion = libs.versions.pitest.junit
 
+    // set target classes
+    targetClasses.addAll("net.scrayos.xenos.client.*")
+
     // speed up performance by incremental, parallel builds
-    threads.set(8)
-    enableDefaultIncrementalAnalysis.set(true)
+    threads = 4
+    enableDefaultIncrementalAnalysis = true
 
     // output results as xml and html
     outputFormats.addAll("XML", "HTML")
-    timestampedReports.set(false)
+    timestampedReports = false
 
     // add the individual source sets
     mainSourceSets.add(sourceSets.main)

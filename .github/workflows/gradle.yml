@@ -10,6 +10,7 @@ jobs:
     - name: Checkout sources
       uses: actions/checkout@v4
       with:
+        fetch-depth: 0
         lfs: true
 
     - name: Set up Java
@@ -28,7 +29,7 @@ jobs:
       run: ./gradlew pitest
 
     - name: Execute Sonarqube Scan
-      run: ./gradlew sonar
+      run: ./gradlew koverReport sonar
 
     - name: Upload analysis results to GitHub
       uses: github/codeql-action/upload-sarif@v3

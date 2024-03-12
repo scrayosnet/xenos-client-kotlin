@@ -7,6 +7,7 @@ pitest-core = "1.15.8"
 pitest-junit = "1.2.1"
 kotest-core = "5.8.0"
 kotest-testcontainers = "2.0.2"
+kotest-pitest = "1.2.0"
 protobuf = "3.25.3"
 protoc-java = "1.61.1"
 protoc-kotlin = "1.4.1"
@@ -23,6 +24,7 @@ grpc-netty = { group = "io.grpc", name = "grpc-netty", version.ref = "protoc-jav
 kotlin-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
 kotest-runner = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest-core" }
 kotest-testcontainers = { group = "io.kotest.extensions", name = "kotest-extensions-testcontainers", version.ref = "kotest-testcontainers" }
+kotest-pitest = { group = "io.kotest.extensions", name = "kotest-extensions-pitest", version.ref = "kotest-pitest" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 log4j-core = { group = "org.apache.logging.log4j", name = "log4j-core", version.ref = "log4j" }
@@ -34,7 +36,7 @@ protoc-genKotlin = { group = "io.grpc", name = "protoc-gen-grpc-kotlin", version
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 [bundles]
-kotest = ["kotest-runner", "kotest-testcontainers"]
+kotest = ["kotest-runner", "kotest-testcontainers", "kotest-pitest"]
 grpc = ["protobuf-kotlin", "grpc-protobuf", "grpc-kotlin-stub"]
 log4j = ["log4j-core", "log4j-slf4j"]
 
