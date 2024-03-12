@@ -207,6 +207,7 @@ sonarqube {
         property("sonar.projectName", "xenos-client-kotlin")
         property("sonar.projectVersion", version)
         property("sonar.projectDescription", description!!)
+        property("sonar.host.url", "https://sonarcloud.io")
         property("sonar.pitest.mode", "reuseReport")
         property(
             "sonar.kotlin.ktlint.reportPaths",

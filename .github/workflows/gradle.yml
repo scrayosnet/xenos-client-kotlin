@@ -24,8 +24,11 @@ jobs:
     - name: Execute Gradle Build
       run: ./gradlew build
 
+    - name: Execute Pitest
+      run: ./gradlew pitest
+
     - name: Execute Sonarqube Scan
-      run: ./gradlew sonar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.token=$SONAR_TOKEN -Dsonar.qualitygate.wait=true
+      run: ./gradlew sonar
 
     - name: Upload analysis results to GitHub
       uses: github/codeql-action/upload-sarif@v3
