@@ -57,10 +57,10 @@ After your instance is up and running, you have to add Xenos Client for Kotlin t
 ```kotlin
 dependencies {
     // make sure to specify the latest version
-    api("net.scrayos", "xenos-client", "1.0.0")
+    api("net.scrayos", "xenos-client", "0.1.0")
 
     // choose your own gRPC runtime or use an existing one
-    runtimeOnly("io.grpc", "grpc-netty", "1.61.1")
+    runtimeOnly("io.grpc", "grpc-netty", "1.62.2")
 }
 ```
 

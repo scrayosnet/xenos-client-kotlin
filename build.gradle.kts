@@ -5,7 +5,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 // define the gav coordinates of this project
 group = "net.scrayos"
-version = "1.0.0-SNAPSHOT"
+version = "0.1.0-SNAPSHOT"
 description = "Xenos Client (Kotlin/Java)"
 
 // hook the plugins for the builds
@@ -45,6 +45,9 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.bundles.log4j)
     testRuntimeOnly(libs.grpc.netty)
+
+    // specify pitest test plugin
+    pitest(libs.pitest.kotlin)
 
     // integrate the dokka html export plugin
     dokkaHtmlPlugin(libs.dokka.html)

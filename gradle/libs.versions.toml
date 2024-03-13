@@ -5,6 +5,7 @@ ktlint = "1.1.1"
 junit = "5.10.2"
 pitest-core = "1.15.8"
 pitest-junit = "1.2.1"
+pitest-kotlin = "1.2.1"
 kotest-core = "5.8.1"
 kotest-testcontainers = "2.0.2"
 kotest-pitest = "1.2.0"
@@ -34,6 +35,7 @@ protoc-core = { group = "com.google.protobuf", name = "protoc", version.ref = "p
 protoc-genJava = { group = "io.grpc", name = "protoc-gen-grpc-java", version.ref = "protoc-java" }
 protoc-genKotlin = { group = "io.grpc", name = "protoc-gen-grpc-kotlin", version.ref = "protoc-kotlin" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+pitest-kotlin = { group = "com.arcmutate", name = "com.arcmutate:pitest-kotlin-plugin", version.ref = "pitest-kotlin"}
 
 [bundles]
 kotest = ["kotest-runner", "kotest-testcontainers", "kotest-pitest"]
