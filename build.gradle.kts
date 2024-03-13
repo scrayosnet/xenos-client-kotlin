@@ -18,7 +18,6 @@ plugins {
     alias(libs.plugins.kover)
     alias(libs.plugins.protobuf)
     alias(libs.plugins.sonarqube)
-    alias(libs.plugins.pitest)
     alias(libs.plugins.ktlint)
 }
 
@@ -45,9 +44,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.bundles.log4j)
     testRuntimeOnly(libs.grpc.netty)
-
-    // specify pitest test plugin
-    pitest(libs.pitest.kotlin)
 
     // integrate the dokka html export plugin
     dokkaHtmlPlugin(libs.dokka.html)
@@ -164,28 +160,6 @@ publishing {
     }
 }
 
-// configure pitest plugin
-pitest {
-    // configure the most recent versions
-    pitestVersion = libs.versions.pitest.core
-    junit5PluginVersion = libs.versions.pitest.junit
-
-    // set target classes
-    targetClasses.addAll("net.scrayos.xenos.client.*")
-
-    // speed up performance by incremental, parallel builds
-    threads = 4
-    enableDefaultIncrementalAnalysis = true
-
-    // output results as xml and html
-    outputFormats.addAll("XML", "HTML")
-    timestampedReports = false
-
-    // add the individual source sets
-    mainSourceSets.add(sourceSets.main)
-    testSourceSets.add(sourceSets.test)
-}
-
 // configure ktlint
 ktlint {
     // explicitly use a recent ktlint version for latest checks
@@ -214,7 +188,6 @@ sonarqube {
         property("sonar.projectVersion", version)
         property("sonar.projectDescription", description!!)
         property("sonar.host.url", "https://sonarcloud.io")
-        property("sonar.pitest.mode", "reuseReport")
         property(
             "sonar.kotlin.ktlint.reportPaths",
             "build/reports/ktlint/ktlintKotlinScriptCheck/ktlintKotlinScriptCheck.xml," +

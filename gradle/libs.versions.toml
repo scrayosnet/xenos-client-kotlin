@@ -3,12 +3,8 @@ kotlin = "1.9.23"
 dokka = "1.9.20"
 ktlint = "1.1.1"
 junit = "5.10.2"
-pitest-core = "1.15.8"
-pitest-junit = "1.2.1"
-pitest-kotlin = "1.2.1"
 kotest-core = "5.8.1"
 kotest-testcontainers = "2.0.2"
-kotest-pitest = "1.2.0"
 protobuf = "3.25.3"
 protoc-java = "1.62.2"
 protoc-kotlin = "1.4.1"
@@ -25,7 +21,6 @@ grpc-netty = { group = "io.grpc", name = "grpc-netty", version.ref = "protoc-jav
 kotlin-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
 kotest-runner = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "kotest-core" }
 kotest-testcontainers = { group = "io.kotest.extensions", name = "kotest-extensions-testcontainers", version.ref = "kotest-testcontainers" }
-kotest-pitest = { group = "io.kotest.extensions", name = "kotest-extensions-pitest", version.ref = "kotest-pitest" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test" }
 slf4j = { group = "org.slf4j", name = "slf4j-api", version.ref = "slf4j" }
 log4j-core = { group = "org.apache.logging.log4j", name = "log4j-core", version.ref = "log4j" }
@@ -35,10 +30,9 @@ protoc-core = { group = "com.google.protobuf", name = "protoc", version.ref = "p
 protoc-genJava = { group = "io.grpc", name = "protoc-gen-grpc-java", version.ref = "protoc-java" }
 protoc-genKotlin = { group = "io.grpc", name = "protoc-gen-grpc-kotlin", version.ref = "protoc-kotlin" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
-pitest-kotlin = { group = "com.arcmutate", name = "pitest-kotlin-plugin", version.ref = "pitest-kotlin"}
 
 [bundles]
-kotest = ["kotest-runner", "kotest-testcontainers", "kotest-pitest"]
+kotest = ["kotest-runner", "kotest-testcontainers"]
 grpc = ["protobuf-kotlin", "grpc-protobuf", "grpc-kotlin-stub"]
 log4j = ["log4j-core", "log4j-slf4j"]
 
@@ -48,5 +42,4 @@ dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
 kover = { id = "org.jetbrains.kotlinx.kover", version = "0.7.6" }
 protobuf = { id = "com.google.protobuf", version = "0.9.4" }
 sonarqube = { id = "org.sonarqube", version = "4.4.1.3373" }
-pitest = { id = "info.solidsoft.pitest", version = "1.15.0" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.0" }
