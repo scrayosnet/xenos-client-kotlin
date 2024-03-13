@@ -35,7 +35,7 @@ protoc-core = { group = "com.google.protobuf", name = "protoc", version.ref = "p
 protoc-genJava = { group = "io.grpc", name = "protoc-gen-grpc-java", version.ref = "protoc-java" }
 protoc-genKotlin = { group = "io.grpc", name = "protoc-gen-grpc-kotlin", version.ref = "protoc-kotlin" }
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
-pitest-kotlin = { group = "com.arcmutate", name = "com.arcmutate:pitest-kotlin-plugin", version.ref = "pitest-kotlin"}
+pitest-kotlin = { group = "com.arcmutate", name = "pitest-kotlin-plugin", version.ref = "pitest-kotlin"}
 
 [bundles]
 kotest = ["kotest-runner", "kotest-testcontainers", "kotest-pitest"]
