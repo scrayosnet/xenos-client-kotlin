@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.google.protobuf.gradle.id
+import org.gradle.internal.impldep.org.bouncycastle.cms.RecipientId.password
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 // define the gav coordinates of this project
@@ -16,6 +17,7 @@ plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.dokka)
     alias(libs.plugins.kover)
+    alias(libs.plugins.nexusPublish)
     alias(libs.plugins.protobuf)
     alias(libs.plugins.sonarqube)
     alias(libs.plugins.ktlint)
@@ -130,18 +132,21 @@ val dokkaJavadocJar = tasks.register<Jar>("dokkaJavadocJar") {
     archiveClassifier.set("javadoc")
 }
 
+nexusPublishing {
+    repositories {
+        sonatype {
+            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
+            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+            username = System.getenv("OSSRH_USERNAME")
+            password = System.getenv("OSSRH_PASSWORD")
+        }
+    }
+}
+
 // configure the publishing in the maven repository
 publishing {
     // define the repositories that shall be used for publishing
     repositories {
-        maven {
-            name = "OSSRH"
-            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
-            credentials {
-                username = System.getenv("OSSRH_USERNAME")
-                password = System.getenv("OSSRH_PASSWORD")
-            }
-        }
         maven {
             name = "GitHubPackages"
             url = uri("https://maven.pkg.github.com/scrayosnet/xenos-client-kotlin")
