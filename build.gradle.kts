@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.google.protobuf.gradle.id
-import org.gradle.internal.impldep.org.bouncycastle.cms.RecipientId.password
+import com.vanniktech.maven.publish.SonatypeHost
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 // define the gav coordinates of this project
@@ -17,7 +17,7 @@ plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.dokka)
     alias(libs.plugins.kover)
-    alias(libs.plugins.nexusPublish)
+    id("com.vanniktech.maven.publish") version "0.28.0"
     alias(libs.plugins.protobuf)
     alias(libs.plugins.sonarqube)
     alias(libs.plugins.ktlint)
@@ -49,12 +49,6 @@ dependencies {
 
     // integrate the dokka html export plugin
     dokkaHtmlPlugin(libs.dokka.html)
-}
-
-// configure the java extension
-java {
-    // also generate javadoc and sources
-    withSourcesJar()
 }
 
 // configure the kotlin extension
@@ -114,33 +108,40 @@ testing {
     }
 }
 
-// configure dokka task for html output
-val dokkaHtmlJar = tasks.register<Jar>("dokkaHtmlJar") {
-    description = "Generates the HTML documentation for this project."
-    group = JavaBasePlugin.DOCUMENTATION_GROUP
-    dependsOn(tasks.dokkaHtml)
-    from(tasks.dokkaHtml.flatMap { it.outputDirectory })
-    archiveClassifier.set("html-docs")
-}
+// configure publishing for the sonatype portal
+mavenPublishing {
+    // add the central portal of Sonatype
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
 
-// configure dokka task for javadoc output
-val dokkaJavadocJar = tasks.register<Jar>("dokkaJavadocJar") {
-    description = "Generates the Javadoc documentation for this project."
-    group = JavaBasePlugin.DOCUMENTATION_GROUP
-    dependsOn(tasks.dokkaJavadoc)
-    from(tasks.dokkaJavadoc.flatMap { it.outputDirectory })
-    archiveClassifier.set("javadoc")
-}
-
-nexusPublishing {
-    repositories {
-        sonatype {
-            nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
-            username = System.getenv("OSSRH_USERNAME")
-            password = System.getenv("OSSRH_PASSWORD")
+    // configure mandatory metadata for Maven Central
+    pom {
+        name.set("xenos-client (Kotlin)")
+        description.set("A gRPC client/binding for the communication with xenos.")
+        inceptionYear.set("2024")
+        url.set("https://github.com/scrayosnet/xenos-client-kotlin/")
+        licenses {
+            license {
+                name.set("MIT License")
+                url.set("https://opensource.org/license/mit")
+                distribution.set("repo")
+            }
+        }
+        developers {
+            developer {
+                id.set("scrayos")
+                name.set("Joshua Dean Küpper")
+                url.set("https://github.com/scrayos/")
+            }
+        }
+        scm {
+            url.set("https://github.com/scrayosnet/xenos-client-kotlin/")
+            connection.set("scm:git:git://github.com/scrayosnet/xenos-client-kotlin.git")
+            developerConnection.set("scm:git:ssh://git@github.com/scrayosnet/xenos-client-kotlin.git")
         }
     }
+
+    // sign all exported publications
+    signAllPublications()
 }
 
 // configure the publishing in the maven repository
@@ -154,15 +155,6 @@ publishing {
                 username = System.getenv("GITHUB_ACTOR")
                 password = System.getenv("GITHUB_TOKEN")
             }
-        }
-    }
-
-    // define the java components as publications for the repository
-    publications {
-        create<MavenPublication>("maven") {
-            from(components["java"])
-            artifact(dokkaJavadocJar)
-            artifact(dokkaHtmlJar)
         }
     }
 }
