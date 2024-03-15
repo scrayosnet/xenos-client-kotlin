@@ -38,7 +38,7 @@ import java.util.concurrent.TimeUnit
  * @param port The port, under which the gRPC server of Xenos can be reached and that will therefore be used to
  * establish the connection.
  */
-class GrpcXenosClient internal constructor(
+class GrpcXenosClient(
     /** The host of the external gRPC interface of Xenos, that will be used to establish the connection. */
     host: String,
     /** The port of the external gRPC interface of Xenos, that will be used to establish the connection. */
