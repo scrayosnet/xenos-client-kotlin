@@ -6,7 +6,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 // define the gav coordinates of this project
 group = "net.scrayos"
-version = "0.1.0"
+version = "0.2.0-SNAPSHOT"
 description = "Xenos Client (Kotlin/Java)"
 
 // hook the plugins for the builds
@@ -17,7 +17,7 @@ plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.dokka)
     alias(libs.plugins.kover)
-    id("com.vanniktech.maven.publish") version "0.28.0"
+    alias(libs.plugins.mavenPublish)
     alias(libs.plugins.protobuf)
     alias(libs.plugins.sonarqube)
     alias(libs.plugins.ktlint)
@@ -115,8 +115,8 @@ mavenPublishing {
 
     // configure mandatory metadata for Maven Central
     pom {
-        name.set("xenos-client (Kotlin)")
-        description.set("A gRPC client/binding for the communication with xenos.")
+        name.set("Xenos Client (Kotlin/Java)")
+        description.set("A gRPC client/binding for the communication with Xenos.")
         inceptionYear.set("2024")
         url.set("https://github.com/scrayosnet/xenos-client-kotlin/")
         licenses {
