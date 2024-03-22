@@ -73,13 +73,11 @@ class GrpcXenosClient(
         }
     }
 
-    override suspend fun getUuids(names: Collection<String>): Map<String, UuidInfo?> = stub.getUuids(
+    override suspend fun getUuids(names: Collection<String>): Map<String, UuidInfo> = stub.getUuids(
         uuidsRequest {
             usernames.addAll(names)
         },
-    )
-        .toResult()
-        .filter { it.value != null }
+    ).toResult()
 
     override suspend fun getProfile(userId: UUID): ProfileInfo? {
         return try {
