@@ -46,9 +46,6 @@ dependencies {
     testImplementation(libs.mockk)
     testImplementation(libs.bundles.log4j)
     testRuntimeOnly(libs.grpc.netty)
-
-    // integrate the dokka html export plugin
-    dokkaHtmlPlugin(libs.dokka.html)
 }
 
 // configure the kotlin extension

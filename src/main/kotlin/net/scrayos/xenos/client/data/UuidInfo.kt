@@ -40,7 +40,7 @@ internal fun UuidResponse.toResult(): UuidInfo {
  * information that is related to the gRPC origin and is therefore independent of the client implementation, that was
  * used to retrieve the data from Xenos.
  */
-internal fun UuidsResponse.toResult(): Map<String, UuidInfo?> {
+internal fun UuidsResponse.toResult(): Map<String, UuidInfo> {
     return resolvedMap
         .mapValues {
             it.value.toResult()

@@ -46,7 +46,7 @@ interface XenosClient : AutoCloseable {
      * retrieve or check the results, all keys have to be submitted in [lowercase][String.lowercase]. That warrants that
      * every name will only be present once.
      */
-    suspend fun getUuids(names: Collection<String>): Map<String, UuidInfo?>
+    suspend fun getUuids(names: Collection<String>): Map<String, UuidInfo>
 
     /**
      * Retrieves the [profile][ProfileInfo] for the supplied [userId] from Xenos. The result includes the moment
