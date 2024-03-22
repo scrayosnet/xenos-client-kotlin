@@ -21,7 +21,7 @@ import java.util.UUID
 
 class GrpcXenosClientTest : ShouldSpec(
     {
-        val container = GenericContainer<Nothing>("ghcr.io/scrayosnet/xenos:v0.1.0-static").apply {
+        val container = GenericContainer<Nothing>("ghcr.io/scrayosnet/xenos:v0.2.0-static").apply {
             withExposedPorts(50051)
         }
         val xenos = install(ContainerExtension(container))
@@ -31,6 +31,7 @@ class GrpcXenosClientTest : ShouldSpec(
         val scrayosSkin = ByteString.copyFrom(resourceAsBytes("/scrayos_skin.png")).toImage()
         val scrayosHead = ByteString.copyFrom(resourceAsBytes("/scrayos_head.png")).toImage()
         val scrayosHeadOverlay = ByteString.copyFrom(resourceAsBytes("/scrayos_head_overlay.png")).toImage()
+        val herbertId = UUID.fromString("1119fff4-f68d-4388-8751-72bbff53d5a0")
 
         beforeEach {
             client = GrpcXenosClient(
@@ -163,8 +164,7 @@ class GrpcXenosClientTest : ShouldSpec(
                         "eyJ0aW1lc3RhbXAiOjAsInByb2ZpbGVJZCI6IjljMDllZWY0LWY2OGQtNDM4Ny05NzUxLTcyYmJmZjUzZDVhM" +
                             "CIsInByb2ZpbGVOYW1lIjoiU2NyYXlvcyIsInNpZ25hdHVyZVJlcXVpcmVkIjpudWxsLCJ0ZXh0dXJlcyI6eyJT" +
                             "S0lOIjp7InVybCI6InNraW5fOWMwOWVlZjQtZjY4ZC00Mzg3LTk3NTEtNzJiYmZmNTNkNWEwIiwibWV0YWRhdGE" +
-                            "iOm51bGx9LCJDQVBFIjp7InVybCI6ImNhcGVfOWMwOWVlZjQtZjY4ZC00Mzg3LTk3NTEtNzJiYmZmNTNkNWEwIi" +
-                            "wibWV0YWRhdGEiOm51bGx9fX0=",
+                            "iOm51bGx9LCJDQVBFIjpudWxsfX0=",
                         null,
                     ),
                 )
@@ -189,11 +189,31 @@ class GrpcXenosClientTest : ShouldSpec(
                 result.shouldBeNull()
             }
 
+            should("return default for standard skin") {
+                val result = client.getSkin(herbertId)
+                result.shouldNotBeNull()
+                result.default shouldBe true
+            }
+
             should("return correct image") {
                 val result = client.getSkin(scrayosId)
                 result.shouldNotBeNull()
                 result.texture shouldBeOfEqualDimensions scrayosSkin
                 result.texture shouldHaveEqualPixels scrayosSkin
+                result.default shouldBe false
+            }
+        }
+
+        context("#getCape") {
+
+            should("return null for a missing UUID") {
+                val result = client.getCape(UUID(0, 0))
+                result.shouldBeNull()
+            }
+
+            should("return null for an existing UUID without cape") {
+                val result = client.getCape(scrayosId)
+                result.shouldBeNull()
             }
         }
 
@@ -209,11 +229,18 @@ class GrpcXenosClientTest : ShouldSpec(
                 result.shouldBeNull()
             }
 
+            should("return default for standard skin") {
+                val result = client.getHead(herbertId)
+                result.shouldNotBeNull()
+                result.default shouldBe true
+            }
+
             should("return correct image (no overlay)") {
                 val result = client.getHead(scrayosId, false)
                 result.shouldNotBeNull()
                 result.texture shouldBeOfEqualDimensions scrayosHead
                 result.texture shouldHaveEqualPixels scrayosHead
+                result.default shouldBe false
             }
 
             should("return correct image (overlay)") {
@@ -221,6 +248,7 @@ class GrpcXenosClientTest : ShouldSpec(
                 result.shouldNotBeNull()
                 result.texture shouldBeOfEqualDimensions scrayosHeadOverlay
                 result.texture shouldHaveEqualPixels scrayosHeadOverlay
+                result.default shouldBe false
             }
         }
 
@@ -234,7 +262,7 @@ class GrpcXenosClientTest : ShouldSpec(
                 client.close()
 
                 val exception = shouldThrow<StatusException> {
-                    client.getUuid("a")
+                    client.getUuids(listOf("a"))
                 }
                 exception.status.code shouldBe Status.Code.UNAVAILABLE
                 exception.status.description shouldBe "Channel shutdown invoked"

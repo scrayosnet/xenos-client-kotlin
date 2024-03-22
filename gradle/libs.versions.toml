@@ -5,13 +5,13 @@ ktlint = "1.1.1"
 junit = "5.10.2"
 kotest-core = "5.8.1"
 kotest-testcontainers = "2.0.2"
-protobuf = "3.25.3"
+protobuf = "4.26.0"
 protoc-java = "1.62.2"
 protoc-kotlin = "1.4.1"
 kotlin-coroutines = "1.8.0"
 slf4j = "2.0.12"
-log4j = "2.23.0"
-mockk = "1.13.9"
+log4j = "2.23.1"
+mockk = "1.13.10"
 
 [libraries]
 protobuf-kotlin = { group = "com.google.protobuf", name = "protobuf-kotlin", version.ref = "protobuf" }

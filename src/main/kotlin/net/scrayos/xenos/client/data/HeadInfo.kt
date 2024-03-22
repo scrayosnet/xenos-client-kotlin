@@ -15,6 +15,8 @@ data class HeadInfo(
     val texture: BufferedImage,
     /** The moment when this data was originally fetched from the MojangAPI and when it was considered fresh. */
     val retrievedAt: Instant,
+    /** Whether this includes the default skin, as the supplied player did not have a custom skin configured. */
+    val default: Boolean,
 )
 
 /**
@@ -27,5 +29,6 @@ internal fun HeadResponse.toResult(): HeadInfo {
     return HeadInfo(
         bytes.toImage(),
         Instant.ofEpochSecond(timestamp),
+        default,
     )
 }
