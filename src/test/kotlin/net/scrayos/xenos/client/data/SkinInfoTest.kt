@@ -17,6 +17,7 @@ class SkinInfoTest : ShouldSpec(
                 val response = skinResponse {
                     bytes = ByteString.copyFrom(resourceAsBytes("/image_test.png"))
                     timestamp = 60
+                    default = true
                 }
                 val image = ByteString.copyFrom(resourceAsBytes("/image_test.png")).toImage()
                 val result = response.toResult()
@@ -24,6 +25,7 @@ class SkinInfoTest : ShouldSpec(
                 result.retrievedAt shouldBe Instant.EPOCH.plusSeconds(60)
                 result.texture shouldBeOfEqualDimensions image
                 result.texture shouldHaveEqualPixels image
+                result.default shouldBe true
             }
         }
     },

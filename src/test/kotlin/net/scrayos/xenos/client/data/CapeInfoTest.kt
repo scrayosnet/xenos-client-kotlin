@@ -7,17 +7,16 @@ import io.kotest.matchers.shouldBe
 import net.scrayos.xenos.client.shouldBeOfEqualDimensions
 import net.scrayos.xenos.client.shouldHaveEqualPixels
 import net.scrayos.xenos.client.utility.toImage
-import scrayosnet.xenos.headResponse
+import scrayosnet.xenos.capeResponse
 import java.time.Instant
 
-class HeadInfoTest : ShouldSpec(
+class CapeInfoTest : ShouldSpec(
     {
         context("#toResult") {
             should("contain original data") {
-                val response = headResponse {
+                val response = capeResponse {
                     bytes = ByteString.copyFrom(resourceAsBytes("/image_test.png"))
                     timestamp = 60
-                    default = true
                 }
                 val image = ByteString.copyFrom(resourceAsBytes("/image_test.png")).toImage()
                 val result = response.toResult()
@@ -25,7 +24,6 @@ class HeadInfoTest : ShouldSpec(
                 result.retrievedAt shouldBe Instant.EPOCH.plusSeconds(60)
                 result.texture shouldBeOfEqualDimensions image
                 result.texture shouldHaveEqualPixels image
-                result.default shouldBe true
             }
         }
     },

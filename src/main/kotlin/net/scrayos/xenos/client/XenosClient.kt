@@ -1,6 +1,7 @@
 package net.scrayos.xenos.client
 
 import kotlinx.coroutines.flow.Flow
+import net.scrayos.xenos.client.data.CapeInfo
 import net.scrayos.xenos.client.data.HeadInfo
 import net.scrayos.xenos.client.data.ProfileInfo
 import net.scrayos.xenos.client.data.SkinInfo
@@ -61,6 +62,14 @@ interface XenosClient : AutoCloseable {
      * accessible.
      */
     suspend fun getSkin(userId: UUID): SkinInfo?
+
+    /**
+     * Retrieves the current [cape][CapeInfo] of the supplied [userId] from Xenos. The result includes the moment when
+     * the data was fetched from the Mojang API, to that stale data can be identified. If the player cannot be found or
+     * has no cape, `null` will be returned. The texture is guaranteed to be present within the memory and therefore
+     * easily accessible.
+     */
+    suspend fun getCape(userId: UUID): CapeInfo?
 
     /**
      * Retrieves the current [head][HeadInfo] of the supplied [userId] from Xenos. The result includes the moment when

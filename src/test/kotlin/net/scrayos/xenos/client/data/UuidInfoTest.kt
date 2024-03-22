@@ -2,49 +2,54 @@ package net.scrayos.xenos.client.data
 
 import io.kotest.core.spec.style.ShouldSpec
 import io.kotest.matchers.maps.shouldContainKeys
-import io.kotest.matchers.nulls.shouldBeNull
 import io.kotest.matchers.nulls.shouldNotBeNull
 import io.kotest.matchers.shouldBe
-import scrayosnet.xenos.uuidData
 import scrayosnet.xenos.uuidResponse
-import scrayosnet.xenos.uuidResult
+import scrayosnet.xenos.uuidsResponse
 import java.time.Instant
 import java.util.UUID
 
 class UuidInfoTest : ShouldSpec(
     {
-        context("#toResult") {
+        context("UuidResponse#toResult") {
+            should("contain original data") {
+                val testName = "Scrayos"
+                val testUuid = UUID.randomUUID()
+                val response = uuidResponse {
+                    uuid = testUuid.toString()
+                    username = testName
+                    timestamp = 65
+                }
+                val result = response.toResult()
+                result.id shouldBe testUuid
+                result.username shouldBe testName
+                result.retrievedAt shouldBe Instant.EPOCH.plusSeconds(65)
+            }
+        }
+
+        context("UuidsResponse#toResult") {
             should("contain original data") {
                 val scrayosUuid = UUID.randomUUID()
                 val hydrofinUuid = UUID.randomUUID()
-                val response = uuidResponse {
+                val response = uuidsResponse {
                     resolved.putAll(
                         mapOf(
-                            "scrayos" to uuidResult {
-                                data = uuidData {
-                                    uuid = scrayosUuid.toString()
-                                    username = "Scrayos"
-                                }
+                            "scrayos" to uuidResponse {
+                                uuid = scrayosUuid.toString()
+                                username = "Scrayos"
                                 timestamp = 65
                             },
-                            "hydrofin" to uuidResult {
-                                data = uuidData {
-                                    uuid = hydrofinUuid.toString()
-                                    username = "Hydrofin"
-                                }
+                            "hydrofin" to uuidResponse {
+                                uuid = hydrofinUuid.toString()
+                                username = "Hydrofin"
                                 timestamp = 70
-                            },
-                            "nonexisting" to uuidResult {
-                                timestamp = 0
                             },
                         ),
                     )
                 }
                 val result = response.toResult()
 
-                result.shouldContainKeys("scrayos", "hydrofin", "nonexisting")
-
-                result["nonexisting"].shouldBeNull()
+                result.shouldContainKeys("scrayos", "hydrofin")
 
                 val scrayos = result["scrayos"]
                 scrayos.shouldNotBeNull()

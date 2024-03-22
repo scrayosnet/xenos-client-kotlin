@@ -6,6 +6,7 @@ import io.grpc.ManagedChannelBuilder
 import io.grpc.Status.Code.NOT_FOUND
 import io.grpc.Status.Code.UNAVAILABLE
 import io.grpc.StatusException
+import net.scrayos.xenos.client.data.CapeInfo
 import net.scrayos.xenos.client.data.HeadInfo
 import net.scrayos.xenos.client.data.ProfileInfo
 import net.scrayos.xenos.client.data.SkinInfo
@@ -13,10 +14,12 @@ import net.scrayos.xenos.client.data.UuidInfo
 import net.scrayos.xenos.client.data.toResult
 import org.slf4j.LoggerFactory
 import scrayosnet.xenos.ProfileGrpcKt
+import scrayosnet.xenos.capeRequest
 import scrayosnet.xenos.headRequest
 import scrayosnet.xenos.profileRequest
 import scrayosnet.xenos.skinRequest
 import scrayosnet.xenos.uuidRequest
+import scrayosnet.xenos.uuidsRequest
 import java.lang.IllegalStateException
 import java.time.Duration
 import java.util.UUID
@@ -55,12 +58,23 @@ class GrpcXenosClient(
     private val stub: ProfileGrpcKt.ProfileCoroutineStub = ProfileGrpcKt.ProfileCoroutineStub(channel)
 
     override suspend fun getUuid(name: String): UuidInfo? {
-        val result = getUuids(listOf(name))
-        return result[name.lowercase()]
+        return try {
+            stub.getUuid(
+                uuidRequest {
+                    username = name
+                },
+            ).toResult()
+        } catch (ex: StatusException) {
+            when (ex.status.code) {
+                UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested uuid")
+                NOT_FOUND -> null
+                else -> throw ex
+            }
+        }
     }
 
     override suspend fun getUuids(names: Collection<String>): Map<String, UuidInfo?> = stub.getUuids(
-        uuidRequest {
+        uuidsRequest {
             usernames.addAll(names)
         },
     )
@@ -93,6 +107,22 @@ class GrpcXenosClient(
         } catch (ex: StatusException) {
             when (ex.status.code) {
                 UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested skin")
+                NOT_FOUND -> null
+                else -> throw ex
+            }
+        }
+    }
+
+    override suspend fun getCape(userId: UUID): CapeInfo? {
+        return try {
+            stub.getCape(
+                capeRequest {
+                    uuid = userId.toString()
+                },
+            ).toResult()
+        } catch (ex: StatusException) {
+            when (ex.status.code) {
+                UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested cape")
                 NOT_FOUND -> null
                 else -> throw ex
             }
