@@ -6,7 +6,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 // define the gav coordinates of this project
 group = "net.scrayos"
-version = "0.5.0"
+version = "0.6.0-SNAPSHOT"
 description = "Xenos Client (Kotlin/Java)"
 
 // hook the plugins for the builds
