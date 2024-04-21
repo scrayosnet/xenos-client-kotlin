@@ -60,7 +60,7 @@ dependencies {
     api("net.scrayos", "xenos-client", "0.1.0")
 
     // choose your own gRPC runtime or use an existing one
-    runtimeOnly("io.grpc", "grpc-netty", "1.62.2")
+    runtimeOnly("io.grpc", "grpc-netty", "1.63.0")
 }
 ```
 
