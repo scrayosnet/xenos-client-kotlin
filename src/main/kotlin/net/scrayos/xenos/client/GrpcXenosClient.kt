@@ -45,7 +45,7 @@ class GrpcXenosClient(
     /** The host of the external gRPC interface of Xenos, that will be used to establish the connection. */
     host: String,
     /** The port of the external gRPC interface of Xenos, that will be used to establish the connection. */
-    port: Int = 50051,
+    port: Int = DEFAULT_XENOS_PORT,
 ) : XenosClient {
 
     /** The [channel][ManagedChannel], that will be used for the network communication with the external interface. */
@@ -167,6 +167,9 @@ class GrpcXenosClient(
     companion object {
         /** The logger that will be utilized to perform any logging for the methods of this class. */
         private val logger = LoggerFactory.getLogger(GrpcXenosClient::class.java)
+
+        /** The default port, that will be used to communicate with the gRPC server of Xenos. */
+        private const val DEFAULT_XENOS_PORT: Int = 50051
 
         /** The [duration][Duration], that will be waited at maximum for the successful shutdown of the channel. */
         private val SHUTDOWN_GRACE_PERIOD = Duration.ofSeconds(5)
