@@ -1,17 +1,17 @@
 [versions]
-kotlin = "1.9.23"
+kotlin = "2.0.0"
 dokka = "1.9.20"
-ktlint = "1.1.1"
+ktlint = "1.2.1"
 junit = "5.10.2"
-kotest-core = "5.8.1"
+kotest-core = "5.9.0"
 kotest-testcontainers = "2.0.2"
 protobuf = "3.25.3"
-protoc-java = "1.63.0"
+protoc-java = "1.64.0"
 protoc-kotlin = "1.4.1"
-kotlin-coroutines = "1.8.0"
+kotlin-coroutines = "1.8.1"
 slf4j = "2.0.13"
 log4j = "2.23.1"
-mockk = "1.13.10"
+mockk = "1.13.11"
 
 [libraries]
 protobuf-kotlin = { group = "com.google.protobuf", name = "protobuf-kotlin", version.ref = "protobuf" }
@@ -36,9 +36,11 @@ grpc = ["protobuf-kotlin", "grpc-protobuf", "grpc-kotlin-stub"]
 log4j = ["log4j-core", "log4j-slf4j"]
 
 [plugins]
+idea = { id = "org.gradle.idea" }
+javaLibrary = { id = "org.gradle.java-library"}
 kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
 dokka = { id = "org.jetbrains.dokka", version.ref = "dokka" }
-kover = { id = "org.jetbrains.kotlinx.kover", version = "0.7.6" }
+kover = { id = "org.jetbrains.kotlinx.kover", version = "0.8.0" }
 protobuf = { id = "com.google.protobuf", version = "0.9.4" }
 sonarqube = { id = "org.sonarqube", version = "5.0.0.4638" }
 ktlint = { id = "org.jlleitschuh.gradle.ktlint", version = "12.1.0" }
