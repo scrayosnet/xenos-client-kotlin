@@ -10,23 +10,24 @@ import net.scrayos.xenos.client.utility.toImage
 import scrayosnet.xenos.headResponse
 import java.time.Instant
 
-class HeadInfoTest : ShouldSpec(
-    {
-        context("#toResult") {
-            should("contain original data") {
-                val response = headResponse {
-                    bytes = ByteString.copyFrom(resourceAsBytes("/image_test.png"))
-                    timestamp = 60
-                    default = true
-                }
-                val image = ByteString.copyFrom(resourceAsBytes("/image_test.png")).toImage()
-                val result = response.toResult()
+class HeadInfoTest :
+    ShouldSpec(
+        {
+            context("#toResult") {
+                should("contain original data") {
+                    val response = headResponse {
+                        bytes = ByteString.copyFrom(resourceAsBytes("/image_test.png"))
+                        timestamp = 60
+                        default = true
+                    }
+                    val image = ByteString.copyFrom(resourceAsBytes("/image_test.png")).toImage()
+                    val result = response.toResult()
 
-                result.retrievedAt shouldBe Instant.EPOCH.plusSeconds(60)
-                result.texture shouldBeOfEqualDimensions image
-                result.texture shouldHaveEqualPixels image
-                result.default shouldBe true
+                    result.retrievedAt shouldBe Instant.EPOCH.plusSeconds(60)
+                    result.texture shouldBeOfEqualDimensions image
+                    result.texture shouldHaveEqualPixels image
+                    result.default shouldBe true
+                }
             }
-        }
-    },
-)
+        },
+    )

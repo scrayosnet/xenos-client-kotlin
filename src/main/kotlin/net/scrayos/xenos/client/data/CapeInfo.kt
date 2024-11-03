@@ -23,9 +23,7 @@ data class CapeInfo(
  * information that is related to the gRPC origin and is therefore independent of the client implementation, that was
  * used to retrieve the data from Xenos.
  */
-internal fun CapeResponse.toResult(): CapeInfo {
-    return CapeInfo(
-        bytes.toImage(),
-        Instant.ofEpochSecond(timestamp),
-    )
-}
+internal fun CapeResponse.toResult(): CapeInfo = CapeInfo(
+    bytes.toImage(),
+    Instant.ofEpochSecond(timestamp),
+)

@@ -26,13 +26,11 @@ data class UuidInfo(
  * information that is related to the gRPC origin and is therefore independent of the client implementation, that was
  * used to retrieve the data from Xenos.
  */
-internal fun UuidResponse.toResult(): UuidInfo {
-    return UuidInfo(
-        UUID.fromString(uuid),
-        username,
-        Instant.ofEpochSecond(timestamp),
-    )
-}
+internal fun UuidResponse.toResult(): UuidInfo = UuidInfo(
+    UUID.fromString(uuid),
+    username,
+    Instant.ofEpochSecond(timestamp),
+)
 
 /**
  * Converts the raw response from gRPC into a more user-friendly data class, that encapsulates the contained data in an
@@ -40,10 +38,8 @@ internal fun UuidResponse.toResult(): UuidInfo {
  * information that is related to the gRPC origin and is therefore independent of the client implementation, that was
  * used to retrieve the data from Xenos.
  */
-internal fun UuidsResponse.toResult(): Map<String, UuidInfo> {
-    return resolvedMap
-        .mapValues {
-            it.value.toResult()
-        }
-        .toMap()
-}
+internal fun UuidsResponse.toResult(): Map<String, UuidInfo> = resolvedMap
+    .mapValues {
+        it.value.toResult()
+    }
+    .toMap()

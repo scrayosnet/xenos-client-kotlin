@@ -25,10 +25,8 @@ data class SkinInfo(
  * information that is related to the gRPC origin and is therefore independent of the client implementation, that was
  * used to retrieve the data from Xenos.
  */
-internal fun SkinResponse.toResult(): SkinInfo {
-    return SkinInfo(
-        bytes.toImage(),
-        Instant.ofEpochSecond(timestamp),
-        default,
-    )
-}
+internal fun SkinResponse.toResult(): SkinInfo = SkinInfo(
+    bytes.toImage(),
+    Instant.ofEpochSecond(timestamp),
+    default,
+)

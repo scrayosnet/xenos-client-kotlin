@@ -42,7 +42,6 @@ dependencies {
     // specify test dependencies
     testImplementation(libs.kotlin.test)
     testImplementation(libs.bundles.kotest)
-    testImplementation(libs.mockk)
     testImplementation(libs.bundles.log4j)
     testRuntimeOnly(libs.grpc.netty)
 }
