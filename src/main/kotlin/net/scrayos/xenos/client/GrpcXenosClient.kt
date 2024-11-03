@@ -57,19 +57,17 @@ class GrpcXenosClient(
     /** The coroutine-based stub for the communication with the gRPC interface of Xenos. */
     private val stub: ProfileGrpcKt.ProfileCoroutineStub = ProfileGrpcKt.ProfileCoroutineStub(channel)
 
-    override suspend fun getUuid(name: String): UuidInfo? {
-        return try {
-            stub.getUuid(
-                uuidRequest {
-                    username = name
-                },
-            ).toResult()
-        } catch (ex: StatusException) {
-            when (ex.status.code) {
-                UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested uuid")
-                NOT_FOUND -> null
-                else -> throw ex
-            }
+    override suspend fun getUuid(name: String): UuidInfo? = try {
+        stub.getUuid(
+            uuidRequest {
+                username = name
+            },
+        ).toResult()
+    } catch (ex: StatusException) {
+        when (ex.status.code) {
+            UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested uuid")
+            NOT_FOUND -> null
+            else -> throw ex
         }
     }
 
@@ -79,68 +77,60 @@ class GrpcXenosClient(
         },
     ).toResult()
 
-    override suspend fun getProfile(userId: UUID): ProfileInfo? {
-        return try {
-            stub.getProfile(
-                profileRequest {
-                    uuid = userId.toString()
-                },
-            ).toResult()
-        } catch (ex: StatusException) {
-            when (ex.status.code) {
-                UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested profile")
-                NOT_FOUND -> null
-                else -> throw ex
-            }
+    override suspend fun getProfile(userId: UUID): ProfileInfo? = try {
+        stub.getProfile(
+            profileRequest {
+                uuid = userId.toString()
+            },
+        ).toResult()
+    } catch (ex: StatusException) {
+        when (ex.status.code) {
+            UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested profile")
+            NOT_FOUND -> null
+            else -> throw ex
         }
     }
 
-    override suspend fun getSkin(userId: UUID): SkinInfo? {
-        return try {
-            stub.getSkin(
-                skinRequest {
-                    uuid = userId.toString()
-                },
-            ).toResult()
-        } catch (ex: StatusException) {
-            when (ex.status.code) {
-                UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested skin")
-                NOT_FOUND -> null
-                else -> throw ex
-            }
+    override suspend fun getSkin(userId: UUID): SkinInfo? = try {
+        stub.getSkin(
+            skinRequest {
+                uuid = userId.toString()
+            },
+        ).toResult()
+    } catch (ex: StatusException) {
+        when (ex.status.code) {
+            UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested skin")
+            NOT_FOUND -> null
+            else -> throw ex
         }
     }
 
-    override suspend fun getCape(userId: UUID): CapeInfo? {
-        return try {
-            stub.getCape(
-                capeRequest {
-                    uuid = userId.toString()
-                },
-            ).toResult()
-        } catch (ex: StatusException) {
-            when (ex.status.code) {
-                UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested cape")
-                NOT_FOUND -> null
-                else -> throw ex
-            }
+    override suspend fun getCape(userId: UUID): CapeInfo? = try {
+        stub.getCape(
+            capeRequest {
+                uuid = userId.toString()
+            },
+        ).toResult()
+    } catch (ex: StatusException) {
+        when (ex.status.code) {
+            UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested cape")
+            NOT_FOUND -> null
+            else -> throw ex
         }
     }
 
-    override suspend fun getHead(userId: UUID, includeOverlay: Boolean): HeadInfo? {
-        return try {
-            stub.getHead(
-                headRequest {
-                    uuid = userId.toString()
-                    overlay = includeOverlay
-                },
-            ).toResult()
-        } catch (ex: StatusException) {
-            when (ex.status.code) {
-                UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested head")
-                NOT_FOUND -> null
-                else -> throw ex
-            }
+    override suspend fun getHead(userId: UUID, includeOverlay: Boolean): HeadInfo? = try {
+        stub.getHead(
+            headRequest {
+                uuid = userId.toString()
+                overlay = includeOverlay
+            },
+        ).toResult()
+    } catch (ex: StatusException) {
+        when (ex.status.code) {
+            UNAVAILABLE -> throw IllegalStateException("Xenos could not fetch the requested head")
+            NOT_FOUND -> null
+            else -> throw ex
         }
     }
 

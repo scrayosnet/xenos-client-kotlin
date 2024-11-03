@@ -10,8 +10,8 @@ import net.scrayos.xenos.client.utility.toImage
 import scrayosnet.xenos.headResponse
 import java.time.Instant
 
-class HeadInfoTest : ShouldSpec(
-    {
+class HeadInfoTest : ShouldSpec() {
+    init {
         context("#toResult") {
             should("contain original data") {
                 val response = headResponse {
@@ -28,5 +28,5 @@ class HeadInfoTest : ShouldSpec(
                 result.default shouldBe true
             }
         }
-    },
-)
+    }
+}

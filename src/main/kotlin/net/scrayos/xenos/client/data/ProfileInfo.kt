@@ -43,18 +43,16 @@ data class ProfileInfo(
  * information that is related to the gRPC origin and is therefore independent of the client implementation, that was
  * used to retrieve the data from Xenos.
  */
-internal fun ProfileResponse.toResult(): ProfileInfo {
-    return ProfileInfo(
-        UUID.fromString(uuid),
-        name,
-        propertiesList.map {
-            ProfileInfo.Property(
-                it.name,
-                it.value,
-                if (it.hasSignature()) it.signature else null,
-            )
-        }.toSet(),
-        profileActionsList.toSet(),
-        Instant.ofEpochSecond(timestamp),
-    )
-}
+internal fun ProfileResponse.toResult(): ProfileInfo = ProfileInfo(
+    UUID.fromString(uuid),
+    name,
+    propertiesList.map {
+        ProfileInfo.Property(
+            it.name,
+            it.value,
+            if (it.hasSignature()) it.signature else null,
+        )
+    }.toSet(),
+    profileActionsList.toSet(),
+    Instant.ofEpochSecond(timestamp),
+)

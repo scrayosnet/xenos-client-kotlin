@@ -25,10 +25,8 @@ data class HeadInfo(
  * information that is related to the gRPC origin and is therefore independent of the client implementation, that was
  * used to retrieve the data from Xenos.
  */
-internal fun HeadResponse.toResult(): HeadInfo {
-    return HeadInfo(
-        bytes.toImage(),
-        Instant.ofEpochSecond(timestamp),
-        default,
-    )
-}
+internal fun HeadResponse.toResult(): HeadInfo = HeadInfo(
+    bytes.toImage(),
+    Instant.ofEpochSecond(timestamp),
+    default,
+)

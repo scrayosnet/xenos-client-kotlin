@@ -10,8 +10,8 @@ import net.scrayos.xenos.client.utility.toImage
 import scrayosnet.xenos.skinResponse
 import java.time.Instant
 
-class SkinInfoTest : ShouldSpec(
-    {
+class SkinInfoTest : ShouldSpec() {
+    init {
         context("#toResult") {
             should("contain original data") {
                 val response = skinResponse {
@@ -28,5 +28,5 @@ class SkinInfoTest : ShouldSpec(
                 result.default shouldBe true
             }
         }
-    },
-)
+    }
+}

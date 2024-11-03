@@ -19,9 +19,9 @@ import net.scrayos.xenos.client.utility.toImage
 import org.testcontainers.containers.GenericContainer
 import java.util.UUID
 
-class GrpcXenosClientTest : ShouldSpec(
-    {
-        val container = GenericContainer<Nothing>("ghcr.io/scrayosnet/xenos:v0.3.0-static").apply {
+class GrpcXenosClientTest : ShouldSpec() {
+    init {
+        val container = GenericContainer<Nothing>("ghcr.io/scrayosnet/xenos:0.6.1-testing").apply {
             withExposedPorts(50051)
         }
         val xenos = install(ContainerExtension(container))
@@ -161,10 +161,10 @@ class GrpcXenosClientTest : ShouldSpec(
                 result.properties shouldContainExactly setOf(
                     ProfileInfo.Property(
                         "textures",
-                        "eyJ0aW1lc3RhbXAiOjAsInByb2ZpbGVJZCI6IjljMDllZWY0LWY2OGQtNDM4Ny05NzUxLTcyYmJmZjUzZDVhM" +
-                            "CIsInByb2ZpbGVOYW1lIjoiU2NyYXlvcyIsInNpZ25hdHVyZVJlcXVpcmVkIjpudWxsLCJ0ZXh0dXJlcyI6eyJT" +
-                            "S0lOIjp7InVybCI6InNraW5fOWMwOWVlZjQtZjY4ZC00Mzg3LTk3NTEtNzJiYmZmNTNkNWEwIiwibWV0YWRhdGE" +
-                            "iOm51bGx9LCJDQVBFIjpudWxsfX0=",
+                        "eyJ0aW1lc3RhbXAiOjAsInByb2ZpbGVJZCI6IjljMDllZWY0LWY2OGQtNDM4Ny05NzUxLTcyYmJmZjUzZD" +
+                            "VhMCIsInByb2ZpbGVOYW1lIjoiU2NyYXlvcyIsInNpZ25hdHVyZVJlcXVpcmVkIjpudWxsLCJ0ZXh0dXJlcy" +
+                            "I6eyJTS0lOIjp7InVybCI6InNraW5fOWMwOWVlZjQtZjY4ZC00Mzg3LTk3NTEtNzJiYmZmNTNkNWEwIiwibW" +
+                            "V0YWRhdGEiOm51bGx9LCJDQVBFIjpudWxsfX0=",
                         null,
                     ),
                 )
@@ -274,5 +274,5 @@ class GrpcXenosClientTest : ShouldSpec(
                 Thread.interrupted().shouldBeTrue()
             }
         }
-    },
-)
+    }
+}

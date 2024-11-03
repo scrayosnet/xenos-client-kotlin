@@ -8,8 +8,8 @@ import scrayosnet.xenos.profileResponse
 import java.time.Instant
 import java.util.UUID
 
-class ProfileInfoTest : ShouldSpec(
-    {
+class ProfileInfoTest : ShouldSpec() {
+    init {
         context("#toResult") {
             should("contain original data") {
                 val testUuid = UUID.randomUUID()
@@ -57,5 +57,5 @@ class ProfileInfoTest : ShouldSpec(
                 result.retrievedAt shouldBe Instant.EPOCH.plusSeconds(65)
             }
         }
-    },
-)
+    }
+}

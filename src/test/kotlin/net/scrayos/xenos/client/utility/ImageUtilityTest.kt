@@ -9,8 +9,8 @@ import io.kotest.matchers.shouldBe
 import io.kotest.matchers.string.startWith
 
 @OptIn(ExperimentalStdlibApi::class)
-class ImageUtilityTest : ShouldSpec(
-    {
+class ImageUtilityTest : ShouldSpec() {
+    init {
         context("ByteString.toImage") {
             should("throw ISE for empty bytes") {
                 val exception = shouldThrow<IllegalStateException> {
@@ -66,5 +66,5 @@ class ImageUtilityTest : ShouldSpec(
                 }
             }
         }
-    },
-)
+    }
+}

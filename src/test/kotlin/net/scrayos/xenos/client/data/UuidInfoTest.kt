@@ -9,8 +9,8 @@ import scrayosnet.xenos.uuidsResponse
 import java.time.Instant
 import java.util.UUID
 
-class UuidInfoTest : ShouldSpec(
-    {
+class UuidInfoTest : ShouldSpec() {
+    init {
         context("UuidResponse#toResult") {
             should("contain original data") {
                 val testName = "Scrayos"
@@ -64,5 +64,5 @@ class UuidInfoTest : ShouldSpec(
                 hydrofin.retrievedAt shouldBe Instant.EPOCH.plusSeconds(70)
             }
         }
-    },
-)
+    }
+}

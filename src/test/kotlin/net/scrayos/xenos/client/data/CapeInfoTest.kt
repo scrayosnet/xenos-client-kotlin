@@ -10,8 +10,8 @@ import net.scrayos.xenos.client.utility.toImage
 import scrayosnet.xenos.capeResponse
 import java.time.Instant
 
-class CapeInfoTest : ShouldSpec(
-    {
+class CapeInfoTest : ShouldSpec() {
+    init {
         context("#toResult") {
             should("contain original data") {
                 val response = capeResponse {
@@ -26,5 +26,5 @@ class CapeInfoTest : ShouldSpec(
                 result.texture shouldHaveEqualPixels image
             }
         }
-    },
-)
+    }
+}
