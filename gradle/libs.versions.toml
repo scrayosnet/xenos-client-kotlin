@@ -10,7 +10,7 @@ protoc-java = "1.68.1"
 protoc-kotlin = "1.4.1"
 kotlin-coroutines = "1.9.0"
 slf4j = "2.0.16"
-log4j = "2.24.1"
+log4j = "2.24.2"
 
 [libraries]
 protobuf-kotlin = { group = "com.google.protobuf", name = "protobuf-kotlin", version.ref = "protobuf" }
