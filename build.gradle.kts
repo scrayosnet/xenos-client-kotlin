@@ -6,7 +6,7 @@ import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 
 // define the gav coordinates of this project
 group = "net.scrayos"
-version = "0.8.2-SNAPSHOT"
+version = "0.8.3"
 description = "Xenos Client (Kotlin/Java)"
 
 // hook the plugins for the builds
@@ -33,7 +33,7 @@ dependencies {
     // add gRPC dependencies that are necessary for compilation and execution
     implementation(libs.bundles.grpc)
 
-    // add coroutines for our coroutine based communication
+    // add coroutines for our coroutine-based communication
     implementation(libs.kotlin.coroutines.core)
 
     // compile against the slf4j API for logging
@@ -48,7 +48,7 @@ dependencies {
 
 // configure the kotlin extension
 kotlin {
-    // set the toolchain version that is required to build this project
+    // set the toolchain version required to build this project
     // replaces sourceCompatibility and targetCompatibility as it also sets these implicitly
     // https://kotlinlang.org/docs/gradle-configure-project.html#gradle-java-toolchains-support
     jvmToolchain(17)
@@ -94,7 +94,7 @@ protobuf {
     }
 }
 
-// configure testing suites within gradle check phase
+// configure testing suites within Gradle check phase
 testing {
     suites {
         val test by getting(JvmTestSuite::class) {
@@ -170,6 +170,18 @@ ktlint {
         reporter(ReporterType.PLAIN)
         reporter(ReporterType.CHECKSTYLE)
         reporter(ReporterType.SARIF)
+    }
+}
+
+// configure dokka
+dokka {
+    dokkaSourceSets {
+        configureEach {
+            perPackageOption {
+                matchingRegex.set("scrayosnet.xenos.*")
+                suppress = true
+            }
+        }
     }
 }
 
