@@ -3,6 +3,7 @@
 import com.google.protobuf.gradle.id
 import com.vanniktech.maven.publish.SonatypeHost
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
+import java.net.URI
 
 // define the gav coordinates of this project
 group = "net.scrayos"
@@ -42,6 +43,7 @@ dependencies {
     // specify test dependencies
     testImplementation(libs.kotlin.test)
     testImplementation(libs.bundles.kotest)
+    testImplementation(libs.bundles.testcontainers)
     testImplementation(libs.bundles.log4j)
     testRuntimeOnly(libs.grpc.netty)
 }
@@ -177,6 +179,17 @@ ktlint {
 dokka {
     dokkaSourceSets {
         configureEach {
+            moduleName.set("Xenos Client")
+            includes.from("packages.md")
+            jdkVersion.set(21)
+            samples.from("$projectDir/samples")
+
+            sourceLink {
+                localDirectory.set(projectDir.resolve("src"))
+                remoteUrl.set(URI("https://github.com/scrayosnet/xenos-client-kotlin/tree/main/src"))
+                remoteLineSuffix.set("#L")
+            }
+
             perPackageOption {
                 matchingRegex.set("scrayosnet.xenos.*")
                 suppress = true

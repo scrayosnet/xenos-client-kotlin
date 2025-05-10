@@ -10,7 +10,7 @@ import javax.imageio.ImageIO
  * therefore preserves opacity. The type of [BufferedImage] that will be created by this method depends on the bytes
  * that are contained within this [ByteString].
  */
-fun ByteString.toImage(): BufferedImage {
+internal fun ByteString.toImage(): BufferedImage {
     check(!isEmpty) {
         "Image cannot be created from empty ByteString!"
     }

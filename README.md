@@ -7,6 +7,7 @@
 [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=scrayosnet_xenos-client-kotlin&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=scrayosnet_xenos-client-kotlin "Reliability")
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=scrayosnet_xenos-client-kotlin&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=scrayosnet_xenos-client-kotlin "Maintainability")
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=scrayosnet_xenos-client-kotlin&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=scrayosnet_xenos-client-kotlin "Security")
+[![Discord Community](https://shields.io/discord/1351591265887719508?label=discord)](https://discord.gg/xZ4wbuuKZf "Discord Community")
 
 Xenos Client for Kotlin is a [gRPC][grpc-docs] client/binding that wraps the raw protobuf stubs and communication with
 [Xenos][xenos-project] in an easy-to-use, polished API. It is possible to add the client as a dependency in Maven and
