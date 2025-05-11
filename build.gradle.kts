@@ -7,7 +7,7 @@ import java.net.URI
 
 // define the gav coordinates of this project
 group = "net.scrayos"
-version = "0.8.3-SNAPSHOT"
+version = "0.8.3"
 description = "Xenos Client (Kotlin/Java)"
 
 // hook the plugins for the builds
@@ -37,7 +37,7 @@ dependencies {
     // add coroutines for our coroutine-based communication
     implementation(libs.kotlin.coroutines.core)
 
-    // compile against the slf4j API for logging
+    // compile against the SLF4J API for logging
     compileOnly(libs.slf4j)
 
     // specify test dependencies
