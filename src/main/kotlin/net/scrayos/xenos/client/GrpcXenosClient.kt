@@ -53,6 +53,7 @@ class GrpcXenosClient(
     /** The [channel][ManagedChannel], that will be used for the network communication with the external interface. */
     private val channel: ManagedChannel = ManagedChannelBuilder
         .forAddress(host, port)
+        .defaultLoadBalancingPolicy("round_robin")
         .usePlaintext()
         .build()
 
