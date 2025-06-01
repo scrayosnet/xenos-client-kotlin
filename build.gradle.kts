@@ -7,7 +7,7 @@ import java.net.URI
 
 // define the gav coordinates of this project
 group = "net.scrayos"
-version = "0.9.0"
+version = "0.9.1-SNAPSHOT"
 description = "Xenos Client (Kotlin/Java)"
 
 // hook the plugins for the builds
