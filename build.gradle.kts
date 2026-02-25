@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.google.protobuf.gradle.id
-import com.vanniktech.maven.publish.SonatypeHost
 import org.jlleitschuh.gradle.ktlint.reporter.ReporterType
 import java.net.URI
 
@@ -52,7 +51,7 @@ kotlin {
     // set the toolchain version required to build this project
     // replaces sourceCompatibility and targetCompatibility as it also sets these implicitly
     // https://kotlinlang.org/docs/gradle-configure-project.html#gradle-java-toolchains-support
-    jvmToolchain(17)
+    jvmToolchain(21)
 }
 
 // configure the protobuf extension (protoc + grpc)
@@ -107,7 +106,7 @@ testing {
 // configure publishing for the sonatype portal
 mavenPublishing {
     // add the central portal of Sonatype
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL, automaticRelease = true)
+    publishToMavenCentral(automaticRelease = true)
 
     // configure mandatory metadata for Maven Central
     pom {
