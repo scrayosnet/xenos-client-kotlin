@@ -4,9 +4,7 @@ import io.kotest.assertions.print.Printed
 import io.kotest.assertions.print.print
 import io.kotest.assertions.withClue
 import io.kotest.matchers.DiffableMatcherResult
-import io.kotest.matchers.EqualityMatcherResult
 import io.kotest.matchers.Matcher
-import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.MatcherResultBuilder
 import io.kotest.matchers.compose.all
 import io.kotest.matchers.should
@@ -15,21 +13,18 @@ import java.awt.image.BufferedImage
 
 fun haveWidth(width: Int) = Matcher<BufferedImage> { value ->
     MatcherResultBuilder.create(value.width == width)
-        .withFailureMessage { "image should not have width $width" }
-        .withValues(value.width, width)
-        { "image had width ${value.width} but we expected width $width" },
-        { "image should not have width $width" },
-    )
+        .withFailureMessage { "image had width ${value.width} but we expected width $width" }
+        .withNegatedFailureMessage { "image should not have width $width" }
+        .withValues({ value.width.print() }, { width.print() })
+        .build()
 }
 
 fun haveHeight(height: Int) = Matcher<BufferedImage> { value ->
-    DiffableMatcherResult(
-        value.height == height,
-        Printed(value.height.toString()),
-        height,
-        { "image had height ${value.height} but we expected height $height" },
-        { "image should not have height $height" },
-    )
+    MatcherResultBuilder.create(value.height == height)
+        .withFailureMessage { "image had height ${value.height} but we expected height $height" }
+        .withNegatedFailureMessage { "image should not have height $height" }
+        .withValues({ value.height.print() }, { height.print() })
+        .build()
 }
 
 infix fun BufferedImage.shouldBeOfEqualDimensions(template: BufferedImage) = this should haveDimensions(template)
