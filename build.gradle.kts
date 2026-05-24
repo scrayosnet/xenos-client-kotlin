@@ -6,7 +6,7 @@ import java.net.URI
 
 // define the gav coordinates of this project
 group = "net.scrayos"
-version = "1.0.1-SNAPSHOT"
+version = "2.0.0-SNAPSHOT"
 description = "Xenos Client (Kotlin/Java)"
 
 // hook the plugins for the builds
@@ -51,7 +51,7 @@ kotlin {
     // set the toolchain version required to build this project
     // replaces sourceCompatibility and targetCompatibility as it also sets these implicitly
     // https://kotlinlang.org/docs/gradle-configure-project.html#gradle-java-toolchains-support
-    jvmToolchain(21)
+    jvmToolchain(25)
 }
 
 // configure the protobuf extension (protoc + grpc)
@@ -179,7 +179,7 @@ dokka {
         configureEach {
             moduleName.set("Xenos Client")
             includes.from("packages.md")
-            jdkVersion.set(21)
+            jdkVersion.set(25)
             samples.from("$projectDir/samples")
 
             sourceLink {
