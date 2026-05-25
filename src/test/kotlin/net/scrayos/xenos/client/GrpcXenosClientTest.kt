@@ -6,7 +6,7 @@ import io.grpc.StatusException
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.extensions.install
 import io.kotest.core.spec.style.ShouldSpec
-import io.kotest.extensions.testcontainers.ContainerExtension
+import io.kotest.extensions.testcontainers.TestContainerSpecExtension
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.collections.shouldContainExactly
 import io.kotest.matchers.maps.shouldBeEmpty
@@ -21,10 +21,10 @@ import java.util.UUID
 
 class GrpcXenosClientTest : ShouldSpec() {
     init {
-        val container = GenericContainer<Nothing>("ghcr.io/scrayosnet/xenos:0.7.2-testing").apply {
+        val container = GenericContainer<Nothing>("ghcr.io/scrayosnet/xenos:0.9.1-testing").apply {
             withExposedPorts(50051)
         }
-        val xenos = install(ContainerExtension(container))
+        val xenos = install(TestContainerSpecExtension(container))
         lateinit var client: XenosClient
 
         val scrayosId = UUID.fromString("9c09eef4-f68d-4387-9751-72bbff53d5a0")
@@ -174,6 +174,29 @@ class GrpcXenosClientTest : ShouldSpec() {
                 val result = client.getProfile(scrayosId)
                 result.shouldNotBeNull()
                 result.actions shouldContainExactly setOf()
+            }
+
+            should("return null signatures when unsigned by default") {
+                val result = client.getProfile(scrayosId)
+                result.shouldNotBeNull()
+                result.properties.all { it.signature == null }.shouldBeTrue()
+            }
+
+            should("return null signatures when explicitly unsigned") {
+                val result = client.getProfile(scrayosId, unsigned = true)
+                result.shouldNotBeNull()
+                result.properties.all { it.signature == null }.shouldBeTrue()
+            }
+
+            should("return non-null signatures when signed") {
+                val result = client.getProfile(scrayosId, unsigned = false)
+                result.shouldNotBeNull()
+                result.properties.all { it.signature != null }.shouldBeTrue()
+            }
+
+            should("return null for a missing UUID when signed") {
+                val result = client.getProfile(UUID(0, 0), unsigned = false)
+                result.shouldBeNull()
             }
         }
 

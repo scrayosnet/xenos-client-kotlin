@@ -51,9 +51,10 @@ interface XenosClient : AutoCloseable {
     /**
      * Retrieves the [profile][ProfileInfo] for the supplied [userId] from Xenos. The result includes the moment
      * when the data was fetched from the Mojang API, so that stale data can be identified. If the player cannot be
-     * found, `null` will be returned. Whether profiles contain signatures can be configured within Xenos.
+     * found, `null` will be returned. Profiles are unsigned by default but can explicitly be requested to be signed,
+     * skipping the cache.
      */
-    suspend fun getProfile(userId: UUID): ProfileInfo?
+    suspend fun getProfile(userId: UUID, unsigned: Boolean = true): ProfileInfo?
 
     /**
      * Retrieves the current [skin][SkinInfo] of the supplied [userId] from Xenos. The result includes the moment when

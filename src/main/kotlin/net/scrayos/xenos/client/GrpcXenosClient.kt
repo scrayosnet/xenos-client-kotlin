@@ -63,7 +63,7 @@ class GrpcXenosClient(
     override suspend fun getUuid(name: String): UuidInfo? = try {
         stub.getUuid(
             uuidRequest {
-                username = name
+                this.username = name
             },
         ).toResult()
     } catch (ex: StatusException) {
@@ -76,14 +76,15 @@ class GrpcXenosClient(
 
     override suspend fun getUuids(names: Collection<String>): Map<String, UuidInfo> = stub.getUuids(
         uuidsRequest {
-            usernames.addAll(names)
+            this.usernames.addAll(names)
         },
     ).toResult()
 
-    override suspend fun getProfile(userId: UUID): ProfileInfo? = try {
+    override suspend fun getProfile(userId: UUID, unsigned: Boolean): ProfileInfo? = try {
         stub.getProfile(
             profileRequest {
-                uuid = userId.toString()
+                this.uuid = userId.toString()
+                this.unsigned = unsigned
             },
         ).toResult()
     } catch (ex: StatusException) {
@@ -97,7 +98,7 @@ class GrpcXenosClient(
     override suspend fun getSkin(userId: UUID): SkinInfo? = try {
         stub.getSkin(
             skinRequest {
-                uuid = userId.toString()
+                this.uuid = userId.toString()
             },
         ).toResult()
     } catch (ex: StatusException) {
@@ -111,7 +112,7 @@ class GrpcXenosClient(
     override suspend fun getCape(userId: UUID): CapeInfo? = try {
         stub.getCape(
             capeRequest {
-                uuid = userId.toString()
+                this.uuid = userId.toString()
             },
         ).toResult()
     } catch (ex: StatusException) {
@@ -125,8 +126,8 @@ class GrpcXenosClient(
     override suspend fun getHead(userId: UUID, includeOverlay: Boolean): HeadInfo? = try {
         stub.getHead(
             headRequest {
-                uuid = userId.toString()
-                overlay = includeOverlay
+                this.uuid = userId.toString()
+                this.overlay = includeOverlay
             },
         ).toResult()
     } catch (ex: StatusException) {
