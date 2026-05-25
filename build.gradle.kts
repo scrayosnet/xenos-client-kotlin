@@ -54,6 +54,11 @@ kotlin {
     jvmToolchain(25)
 }
 
+// enable dependency locking
+dependencyLocking {
+    lockAllConfigurations()
+}
+
 // configure the protobuf extension (protoc + grpc)
 protobuf {
     // configure the protobuf compiler for the proto compilation
