@@ -21,7 +21,7 @@ import java.util.UUID
 
 class GrpcXenosClientTest : ShouldSpec() {
     init {
-        val container = GenericContainer<Nothing>("ghcr.io/scrayosnet/xenos:0.9.0-testing").apply {
+        val container = GenericContainer<Nothing>("ghcr.io/scrayosnet/xenos:0.9.1-testing").apply {
             withExposedPorts(50051)
         }
         val xenos = install(TestContainerSpecExtension(container))
